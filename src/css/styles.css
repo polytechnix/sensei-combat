@@ -1,0 +1,29 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic);
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+body {
+	display: flex;
+	background-color: #000;
+	font-family: 'Open Sans', sans-serif;
+}
+
+canvas {
+	width: 100%;
+	object-fit: contain;
+	background-color: #fff;
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+}
+
+img {
+	display: none;
+}
