@@ -12,14 +12,14 @@ class Fighter {
 		this.velocity = velocity;
 	}
 
-	draw(w, h, c) {
-		context.fillStyle = c;
-		context.fillRect(this.position.x, this.position.y, w, h);
+	draw(color) {
+		context.fillStyle = color;
+		context.fillRect(this.position.x, this.position.y, 50, 150);
 	}
 
 	update(w, h) {
 		this.draw();
-		this.position.y = this.position.y + 12;
+		this.position.y += this.velocity.y;
 	}
 }
 
@@ -31,7 +31,7 @@ const player = new Fighter({
 
 	velocity: {
 		x: 0,
-		y: 0,
+		y: 12,
 	},
 })
 
@@ -43,20 +43,17 @@ const enemy = new Fighter({
 
 	velocity: {
 		x: 0,
-		y: 0,
+		y: 12,
 	},
 })
 
-// player.draw(50, 150, 'red');
-// enemy.draw(50, 150, 'green');
-
-// console.log(player);
-
 function animate() {
 	window.requestAnimationFrame(animate);
-	console.log('Test loop');
+	context.fillStyle = '#000';
+	context.clearRect(0, 0, canvas.width, canvas.height);
 
 	player.update();
+	enemy.update();
 }
 
 animate();
