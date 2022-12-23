@@ -22,6 +22,8 @@ class Fighter {
 
 	update(w, h) {
 		this.draw();
+
+		this.position.x += this.velocity.x;
 		this.position.y += this.velocity.y;
 
 		if(this.position.y + this.height + this.velocity.y >= canvas.height) {
@@ -66,3 +68,47 @@ function animate() {
 }
 
 animate();
+
+window.addEventListener('keydown', (event) => {
+	// console.log(event.key);
+
+	switch (event.key) {
+		case 'w':
+			// ...
+			break;
+
+		case 'a':
+			// ...
+			break;
+
+		case 's':
+			// ...
+			break;
+
+		case 'd':
+			player.velocity.x = 1;
+			break;
+	}
+});
+
+window.addEventListener('keyup', (event) => {
+	// console.log(event.key);
+
+	switch (event.key) {
+		case 'w':
+			// ...
+			break;
+
+		case 'a':
+			// ...
+			break;
+
+		case 's':
+			// ...
+			break;
+
+		case 'd':
+			player.velocity.x = 0;
+			break;
+	}
+});
