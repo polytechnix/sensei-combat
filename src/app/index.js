@@ -58,6 +58,16 @@ const enemy = new Fighter({
 	},
 })
 
+const keys = {
+	a: {
+		pressed: false
+	},
+
+	d: {
+		pressed: false
+	},
+}
+
 function animate() {
 	window.requestAnimationFrame(animate);
 	context.fillStyle = '#000';
@@ -65,6 +75,15 @@ function animate() {
 
 	player.update();
 	enemy.update();
+
+	player.velocity.x = 0;
+
+	if(keys.a.pressed) {
+		player.velocity.x = -1;
+	}
+ 	else if(keys.d.pressed) {
+		player.velocity.x = 1;
+	} 
 }
 
 animate();
@@ -78,7 +97,8 @@ window.addEventListener('keydown', (event) => {
 			break;
 
 		case 'a':
-			// ...
+			// player.velocity.x = -1;
+			keys.a.pressed = true;
 			break;
 
 		case 's':
@@ -86,7 +106,8 @@ window.addEventListener('keydown', (event) => {
 			break;
 
 		case 'd':
-			player.velocity.x = 1;
+			// player.velocity.x = 1;
+			keys.d.pressed = true;
 			break;
 	}
 });
@@ -100,7 +121,8 @@ window.addEventListener('keyup', (event) => {
 			break;
 
 		case 'a':
-			// ...
+			// player.velocity.x = 0;
+			keys.a.pressed = false;
 			break;
 
 		case 's':
@@ -108,7 +130,8 @@ window.addEventListener('keyup', (event) => {
 			break;
 
 		case 'd':
-			player.velocity.x = 0;
+			// player.velocity.x = 0;
+			keys.d.pressed = false;
 			break;
 	}
 });
