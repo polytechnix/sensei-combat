@@ -3,7 +3,7 @@ const context = canvas.getContext('2d');
 
 canvas.width = 1024;
 canvas.height = 640;
-canvas.gravity = 0.2;
+canvas.gravity = 0.8;
 
 context.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -108,18 +108,18 @@ function animate() {
 
 	// Player 1 (player)
 	if(keys.a.pressed && player.lastKeyPressed === 'a') {
-		player.velocity.x = -1;
+		player.velocity.x = -5;
 	}
  	else if(keys.d.pressed && player.lastKeyPressed === 'd') {
-		player.velocity.x = 1;
+		player.velocity.x = 5;
 	}
 
 	// Player 2 (enemy)
 	if(keys.ArrowLeft.pressed && enemy.lastKeyPressed === 'ArrowLeft') {
-		enemy.velocity.x = -1;
+		enemy.velocity.x = -5;
 	}
  	else if(keys.ArrowRight.pressed && enemy.lastKeyPressed === 'ArrowRight') {
-		enemy.velocity.x = 1;
+		enemy.velocity.x = 5;
 	} 
 }
 
@@ -131,7 +131,7 @@ window.addEventListener('keydown', (event) => {
 	switch (event.key) {
 		// Player 1 (player)
 		case 'w':
-			// player.velocity.y = -10;
+			player.velocity.y = -15;
 			keys.a.pressed = true;
 			player.lastKeyPressed = 'w';
 			break;
@@ -155,7 +155,7 @@ window.addEventListener('keydown', (event) => {
 
 		// Player 2 (enemy)
 		case 'ArrowUp':
-			// player.velocity.y = -10;
+			player.velocity.y = -15;
 			keys.ArrowUp.pressed = true;
 			enemy.lastKeyPressed = 'ArrowUp';
 			break;
