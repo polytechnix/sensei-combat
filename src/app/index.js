@@ -8,17 +8,27 @@ canvas.gravity = 0.8;
 context.fillRect(0, 0, canvas.width, canvas.height);
 
 class Fighter {
-	constructor(position, velocity) {
+	constructor(position, velocity, color) {
 		this.position = position;
 		this.velocity = velocity;
 		this.width = 50;
 		this.height = 150;
 		this.lastKeyPressed;
+		this.attackField = {
+			width: 100,
+			height: 50,
+			position: this.position 
+		};
+		this.color = color;
 	}
 
-	draw(color) {
-		context.fillStyle = color;
+	draw() {
+		context.fillStyle = this.color;
 		context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+		// attack field
+		context.fillStyle = '#e2e2e2';
+		context.fillRect(this.attackField.position.x, this.attackField.position.y, this.attackField.width, this.attackField.height);
 	}
 
 	update(w, h) {
@@ -45,6 +55,8 @@ const player = new Fighter({
 		x: 0,
 		y: 0,
 	},
+
+	color: 'red'
 })
 
 const enemy = new Fighter({
@@ -57,6 +69,8 @@ const enemy = new Fighter({
 		x: 0,
 		y: 0,
 	},
+	
+	color: 'orange'
 })
 
 const keys = {
@@ -120,6 +134,12 @@ function animate() {
 	}
  	else if(keys.ArrowRight.pressed && enemy.lastKeyPressed === 'ArrowRight') {
 		enemy.velocity.x = 5;
+	}
+
+	// Collision (detect collision)
+	if(player.attackField.position.x + player.attackField.width >= enemy.position.x) {
+		console.log('Test collision');
+		//...
 	} 
 }
 
