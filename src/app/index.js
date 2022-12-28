@@ -20,6 +20,7 @@ class Fighter {
 			position: this.position 
 		};
 		this.color = color;
+		this.isAttacking;
 	}
 
 	draw() {
@@ -42,6 +43,14 @@ class Fighter {
 		} else {
 			this.velocity.y += gravity;
 		}
+	}
+
+	attack() {
+		this.isAttacking = true;
+
+		setTimeout(() => {
+			this.isAttacking = false;
+		}, 100);
 	}
 }
 
@@ -137,7 +146,7 @@ function animate() {
 	}
 
 	// Collision (detect collision)
-	if(player.attackField.position.x + player.attackField.width >= enemy.position.x) {
+	if(player.attackField.position.x + player.attackField.width >= enemy.position.x && player.attackField.position.x <= enemy.position.x + enemy.width && player.attackField.position.y + player.attackField.height >= enemy.position.y && player.attackField.position.y <= enemy.position.y + enemy.height && player.isAttacking) {
 		console.log('Test collision');
 		//...
 	} 
@@ -171,6 +180,11 @@ window.addEventListener('keydown', (event) => {
 			// player.velocity.x = 1;
 			keys.d.pressed = true;
 			player.lastKeyPressed = 'd';
+			break;
+
+		case 'h':
+			player.attack();
+			console.log('Test attack');
 			break;
 
 		// Player 2 (enemy)
