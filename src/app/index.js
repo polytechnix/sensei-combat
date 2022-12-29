@@ -8,7 +8,7 @@ canvas.gravity = 0.8;
 context.fillRect(0, 0, canvas.width, canvas.height);
 
 class Fighter {
-	constructor(position, velocity, color) {
+	constructor(position, velocity, color, offset) {
 		this.position = position;
 		this.velocity = velocity;
 		this.width = 50;
@@ -17,10 +17,14 @@ class Fighter {
 		this.attackField = {
 			width: 100,
 			height: 50,
-			position: this.position 
+			position: {
+				x: this.position.x,
+				y: this.position.y
+			} 
 		};
 		this.color = color;
 		this.isAttacking;
+		offset;
 	}
 
 	draw() {
@@ -28,8 +32,10 @@ class Fighter {
 		context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
 		// attack field
-		context.fillStyle = '#e2e2e2';
-		context.fillRect(this.attackField.position.x, this.attackField.position.y, this.attackField.width, this.attackField.height);
+		if(this.isAttacking) {
+			context.fillStyle = '#e2e2e2';
+			context.fillRect(this.attackField.position.x, this.attackField.position.y, this.attackField.width, this.attackField.height);
+		}
 	}
 
 	update(w, h) {
@@ -37,6 +43,9 @@ class Fighter {
 
 		this.position.x += this.velocity.x;
 		this.position.y += this.velocity.y;
+
+		this.attackField.position.x = this.position.x - this.attackField.offset.x;
+		this.attackField.position.y = this.position.y - this.attackField.offset.y;
 
 		if(this.position.y + this.height + this.velocity.y >= canvas.height) {
 			this.velocity.y = 0;
@@ -65,6 +74,11 @@ const player = new Fighter({
 		y: 0,
 	},
 
+	offset = { 
+		x: 0,
+		y: 0
+	},
+
 	color: 'red'
 })
 
@@ -77,6 +91,11 @@ const enemy = new Fighter({
 	velocity: {
 		x: 0,
 		y: 0,
+	},
+
+	offset = { 
+		x: -50,
+		y: 0
 	},
 	
 	color: 'orange'
@@ -148,7 +167,7 @@ function animate() {
 	// Collision (detect collision)
 	if(player.attackField.position.x + player.attackField.width >= enemy.position.x && player.attackField.position.x <= enemy.position.x + enemy.width && player.attackField.position.y + player.attackField.height >= enemy.position.y && player.attackField.position.y <= enemy.position.y + enemy.height && player.isAttacking) {
 		console.log('Test collision');
-		//...
+		player.isAttacking = false;
 	} 
 }
 
