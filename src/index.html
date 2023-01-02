@@ -10,7 +10,24 @@
 	<link rel="shortcut icon" type="image/png" href="img/favicon.ico">
 </head>
 <body>
-	<canvas></canvas>
+	<section class="container">
+		<section class="game-zone">
+			<section class="indicators">
+				<div class="health-container">
+					<div class="health">Player</div>
+					<div class="balance" id="playerBalanceHealth"></div>
+				</div>
+
+				<div class="timer">00</div>
+
+				<div class="health-container">
+					<div class="health">Enemy</div>
+					<div class="balance" id="enemyBalanceHealth"></div>
+				</div>
+			</section>
+			<canvas></canvas>
+		</section>
+	</section>
 
 	<script src="./app/index.js"></script>
 </body>

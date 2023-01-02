@@ -27,3 +27,43 @@ canvas {
 img {
 	display: none;
 }
+
+.container {
+	position: relative;
+	display: inline-block;
+}
+
+.game-zone {
+	position: absolute;
+	display: flex;
+	width: 100%;
+	align-items: center;
+	padding: 25px;
+}
+
+.health-container {
+	width: 100%;
+	height: 32px;
+	position: relative;
+}
+
+.health {
+	height: 32px;
+	background-color: '#f0e6bc';
+}
+
+.balance {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: '#8b0000';
+}
+
+.timer {
+	width: 120px;
+	height: 120px;
+	background-color: '#f0e6bc';
+	flex-shrink: 0;
+}

@@ -23,6 +23,7 @@ class Fighter {
 			} 
 		};
 		this.color = color;
+		this.health = 100;
 		this.isAttacking;
 		offset;
 	}
@@ -184,11 +185,15 @@ function animate() {
 	if(detectCollision({field1: player, field2: enemy}) && player.isAttacking) {
 		console.log('Player attack successful');
 		player.isAttacking = false;
+		enemy.health -= 20;
+		document.querySelector('#enemyBalanceHealth') = enemy.health + '%';
 	}
 
 	if(detectCollision({field1: enemy, field2: player}) && enemy.isAttacking) {
 		console.log('Enemy attack successful');
 		enemy.isAttacking = false;
+		player.health -= 20;
+		document.querySelector('#playerBalanceHealth') = player.health + '%';
 	} 
 }
 
