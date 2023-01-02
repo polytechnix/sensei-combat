@@ -137,6 +137,15 @@ const keys = {
 	},
 }
 
+function detectCollision({field1, field2}) {
+	return (
+		field1.attackField.position.x + field1.attackField.width >= field2.position.x && 
+		field1.attackField.position.x <= field2.position.x + field2.width && 
+		field1.attackField.position.y + field1.attackField.height >= field2.position.y && 
+		field1.attackField.position.y <= field2.position.y + field2.height
+	) /* return true/false */
+}
+
 function animate() {
 	window.requestAnimationFrame(animate);
 	context.fillStyle = '#000';
@@ -164,10 +173,22 @@ function animate() {
 		enemy.velocity.x = 5;
 	}
 
-	// Collision (detect collision)
-	if(player.attackField.position.x + player.attackField.width >= enemy.position.x && player.attackField.position.x <= enemy.position.x + enemy.width && player.attackField.position.y + player.attackField.height >= enemy.position.y && player.attackField.position.y <= enemy.position.y + enemy.height && player.isAttacking) {
-		console.log('Test collision');
+	// Collision (detect collision) detectCollision
+	/* 
+	  player.attackField.position.x + player.attackField.width >= enemy.position.x && 
+	  player.attackField.position.x <= enemy.position.x + enemy.width && 
+	  player.attackField.position.y + player.attackField.height >= enemy.position.y && 
+	  player.attackField.position.y <= enemy.position.y + enemy.height
+	*/
+
+	if(detectCollision({field1: player, field2: enemy}) && player.isAttacking) {
+		console.log('Player attack successful');
 		player.isAttacking = false;
+	}
+
+	if(detectCollision({field1: enemy, field2: player}) && enemy.isAttacking) {
+		console.log('Enemy attack successful');
+		enemy.isAttacking = false;
 	} 
 }
 
