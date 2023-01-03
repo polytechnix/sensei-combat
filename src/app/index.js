@@ -207,19 +207,17 @@ function timeCounting() {
 		timer--;
 		// console.log(timer);
 	}
+	
+	if(timer === 0) {
+		if(player.health === enemy.health) {
+			document.querySelector('.alert').innerHTML = 'Drawn game!!!';
+		} else if(player.health > enemy.health) {
+			document.querySelector('.alert').innerHTML = 'Player wins!!!';
+		} else if(player.health < enemy.health) { 
+			document.querySelector('.alert').innerHTML = 'Enemy wins!!!';
+		}
 
-	if(timer === 0 && player.health === enemy.health) {
-		document.querySelector('.alert').innerHTML = 'Drawn game!!!';
 		document.querySelector('.alert').style.display = block;
-		// console.log('drawn game');
-	} else if(timer === 0 && player.health > enemy.health) {
-		document.querySelector('.alert').innerHTML = 'Player wins!!!';
-		document.querySelector('.alert').style.display = block;
-		// console.log('player wins');
-	} else if(timer === 0 && player.health < enemy.health) { 
-		document.querySelector('.alert').innerHTML = 'Enemy wins!!!';
-		document.querySelector('.alert').style.display = block;
-		// console.log('enemy wins');
 	}
 }
 
