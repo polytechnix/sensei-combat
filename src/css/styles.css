@@ -45,9 +45,12 @@ img {
 	width: 100%;
 	height: 32px;
 	position: relative;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .health {
+	width: 100%;
 	height: 32px;
 	background-color: '#f0e6bc';
 }
@@ -58,6 +61,7 @@ img {
 	left: 0;
 	right: 0;
 	bottom: 0;
+	width: 100%;
 	background-color: '#8b0000';
 }
 
