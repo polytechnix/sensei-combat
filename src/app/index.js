@@ -197,6 +197,32 @@ function animate() {
 	} 
 }
 
+let timer = 30;
+
+function timeCounting() {
+	setTimeout(timeCounting, 1000);
+
+	if(timer > 0) {
+		document.querySelector('.timer').innerHTML = timer;
+		timer--;
+		// console.log(timer);
+	}
+
+	if(timer === 0 && player.health === enemy.health) {
+		document.querySelector('.alert').innerHTML = 'Drawn game!!!';
+		document.querySelector('.alert').style.display = block;
+		// console.log('drawn game');
+	} else if(timer === 0 && player.health > enemy.health) {
+		document.querySelector('.alert').innerHTML = 'Player wins!!!';
+		document.querySelector('.alert').style.display = block;
+		// console.log('player wins');
+	} else if(timer === 0 && player.health < enemy.health) { 
+		document.querySelector('.alert').innerHTML = 'Enemy wins!!!';
+		document.querySelector('.alert').style.display = block;
+		// console.log('enemy wins');
+	}
+}
+
 animate();
 
 window.addEventListener('keydown', (event) => {
