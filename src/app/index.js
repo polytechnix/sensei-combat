@@ -7,62 +7,25 @@ canvas.gravity = 0.8;
 
 context.fillRect(0, 0, canvas.width, canvas.height);
 
-class Fighter {
-	constructor(position, velocity, color, offset) {
-		this.position = position;
-		this.velocity = velocity;
-		this.width = 50;
-		this.height = 150;
-		this.lastKeyPressed;
-		this.attackField = {
-			width: 100,
-			height: 50,
-			position: {
-				x: this.position.x,
-				y: this.position.y
-			} 
-		};
-		this.color = color;
-		this.health = 100;
-		this.isAttacking;
-		offset;
-	}
+const background = new Sprite({
+	position: {
+		x: 0,
+		y: 0
+	},
 
-	draw() {
-		context.fillStyle = this.color;
-		context.fillRect(this.position.x, this.position.y, this.width, this.height);
+	imgSrc: './img/sprites/background.png'
+});
 
-		// attack field
-		if(this.isAttacking) {
-			context.fillStyle = '#e2e2e2';
-			context.fillRect(this.attackField.position.x, this.attackField.position.y, this.attackField.width, this.attackField.height);
-		}
-	}
+const tree = new Sprite({
+	position: {
+		x: 150,
+		y: 0
+	},
 
-	update(w, h) {
-		this.draw();
-
-		this.position.x += this.velocity.x;
-		this.position.y += this.velocity.y;
-
-		this.attackField.position.x = this.position.x - this.attackField.offset.x;
-		this.attackField.position.y = this.position.y - this.attackField.offset.y;
-
-		if(this.position.y + this.height + this.velocity.y >= canvas.height) {
-			this.velocity.y = 0;
-		} else {
-			this.velocity.y += gravity;
-		}
-	}
-
-	attack() {
-		this.isAttacking = true;
-
-		setTimeout(() => {
-			this.isAttacking = false;
-		}, 100);
-	}
-}
+	imgSrc: './img/sprites/tree.png',
+	scale: 3.2,
+	frames: 5,
+});
 
 const player = new Fighter({
 	position: {
@@ -80,7 +43,34 @@ const player = new Fighter({
 		y: 0
 	},
 
-	color: 'red'
+	// imgSrc: './img/sprites/player/idle.png',
+	// frames: 8,
+
+	scale: 2.8,
+
+	offset = { 
+		x: 25, 
+		y: 18 
+	},
+
+	sprites = { 
+		idle: {
+			imgSrc: './img/sprites/player/idle.png',
+			frames: 8,
+		},
+ 
+		run: {
+			imgSrc: './img/sprites/player/run.png',
+			frames: 2,
+		},
+
+		jump: {
+			imgSrc: './img/sprites/player/jump.png',
+			frames: 2,
+		},
+
+		// ... 
+	}
 })
 
 const enemy = new Fighter({
@@ -99,7 +89,9 @@ const enemy = new Fighter({
 		y: 0
 	},
 	
-	color: 'orange'
+	imgSrc: './img/sprites/enemy/idle.png',
+	scale: 2.8,
+	frames: 8
 })
 
 const keys = {
@@ -181,18 +173,28 @@ function animate() {
 	context.fillStyle = '#000';
 	context.clearRect(0, 0, canvas.width, canvas.height);
 
+	background.update();
 	player.update();
 	enemy.update();
 
 	player.velocity.x = 0;
 	enemy.velocity.x = 0;
 
+	player.switchSprite('idle');
+
 	// Player 1 (player)
 	if(keys.a.pressed && player.lastKeyPressed === 'a') {
 		player.velocity.x = -5;
+		player.switchSprite('run');
 	}
  	else if(keys.d.pressed && player.lastKeyPressed === 'd') {
 		player.velocity.x = 5;
+		player.switchSprite('run');
+	}
+	
+	// Jump
+	if(player.velocity.y < 0) {
+		player.switchSprite('jump');	
 	}
 
 	// Player 2 (enemy)
