@@ -138,6 +138,35 @@ const keys = {
 	},
 }
 
+let timer = 30;
+let timerId;
+
+function timeCounting() {
+	if(timer > 0) {
+		timerId = setTimeout(timeCounting, 1000);
+		document.querySelector('.timer').innerHTML = timer;
+		timer--;
+	}
+	
+	if(timer === 0) {
+		roundWinner({player, enemy, timerId});
+	}
+}
+
+function roundWinner({player, enemy, timerId}) {
+	clearTimeout(timerId);
+
+	if(player.health === enemy.health) {
+		document.querySelector('.alert').innerHTML = 'Drawn game!!!';
+	} else if(player.health > enemy.health) {
+		document.querySelector('.alert').innerHTML = 'Player wins!!!';
+	} else if(player.health < enemy.health) { 
+		document.querySelector('.alert').innerHTML = 'Enemy wins!!!';
+	}
+
+	document.querySelector('.alert').style.display = block;
+}
+
 function detectCollision({field1, field2}) {
 	return (
 		field1.attackField.position.x + field1.attackField.width >= field2.position.x && 
@@ -194,30 +223,11 @@ function animate() {
 		enemy.isAttacking = false;
 		player.health -= 20;
 		document.querySelector('#playerBalanceHealth') = player.health + '%';
-	} 
-}
-
-let timer = 30;
-
-function timeCounting() {
-	setTimeout(timeCounting, 1000);
-
-	if(timer > 0) {
-		document.querySelector('.timer').innerHTML = timer;
-		timer--;
-		// console.log(timer);
 	}
-	
-	if(timer === 0) {
-		if(player.health === enemy.health) {
-			document.querySelector('.alert').innerHTML = 'Drawn game!!!';
-		} else if(player.health > enemy.health) {
-			document.querySelector('.alert').innerHTML = 'Player wins!!!';
-		} else if(player.health < enemy.health) { 
-			document.querySelector('.alert').innerHTML = 'Enemy wins!!!';
-		}
 
-		document.querySelector('.alert').style.display = block;
+	// end health -> stop round or game over
+	if(player.health <= 0 || enemy.health <= 0) {
+		roundWinner({player, enemy, timerId});
 	}
 }
 
