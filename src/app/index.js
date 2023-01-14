@@ -98,11 +98,47 @@ const enemy = new Fighter({
 		x: -50,
 		y: 0
 	},
-	
-	imgSrc: './img/sprites/enemy/idle.png',
+
+	// imgSrc: './img/sprites/enemy/idle.png',
+	// frames: 8,
+
 	scale: 2.8,
-	frames: 8
+
+	offset = { 
+		x: 25, 
+		y: 18 
+	},
+
+	sprites = { 
+		idle: {
+			imgSrc: './img/sprites/enemy/idle.png',
+			frames: 8,
+		},
+ 
+		run: {
+			imgSrc: './img/sprites/enemy/run.png',
+			frames: 2,
+		},
+
+		jump: {
+			imgSrc: './img/sprites/enemy/jump.png',
+			frames: 2,
+		},
+
+		fall: {
+			imgSrc: './img/sprites/enemy/fall.png',
+			frames: 2,
+		},
+
+		attack1: {
+			imgSrc: './img/sprites/enemy/attack1.png',
+			frames: 8,
+		},
+
+		// ... 
+	}
 })
+
 
 const keys = {
 	// Player 1 (player)
@@ -212,9 +248,13 @@ function animate() {
 	// Player 2 (enemy)
 	if(keys.ArrowLeft.pressed && enemy.lastKeyPressed === 'ArrowLeft') {
 		enemy.velocity.x = -5;
+		enemy.switchSprite('run');
 	}
  	else if(keys.ArrowRight.pressed && enemy.lastKeyPressed === 'ArrowRight') {
 		enemy.velocity.x = 5;
+		enemy.switchSprite('run');
+	} else {
+		enemy.switchSprite('idle');
 	}
 
 	// Collision (detect collision) detectCollision
