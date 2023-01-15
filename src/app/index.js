@@ -257,6 +257,13 @@ function animate() {
 		enemy.switchSprite('idle');
 	}
 
+	// Jumping
+	if(enemy.velocity.y < 0) {
+		enemy.switchSprite('jump');	
+	} else if(enemy.velocity.y > 0) {
+		enemy.switchSprite('fall');	
+	}
+
 	// Collision (detect collision) detectCollision
 	/* 
 	  player.attackField.position.x + player.attackField.width >= enemy.position.x && 
@@ -342,6 +349,11 @@ window.addEventListener('keydown', (event) => {
 			// player.velocity.x = 1;
 			keys.ArrowRight.pressed = true;
 			enemy.lastKeyPressed = 'ArrowRight';
+			break;
+
+		case 'm':
+			enemy.attack();
+			console.log('Test attack');
 			break;
 	}
 });
