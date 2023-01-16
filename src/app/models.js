@@ -45,7 +45,7 @@ class Sprite {
 }
 
 class Fighter extends Sprite {
-	constructor(position, velocity, color, imgSrc, scale = 1, frames = 1,  offset = { x: 0, y: 0 }, sprites) {
+	constructor(position, velocity, color, imgSrc, scale = 1, frames = 1,  offset = { x: 0, y: 0 }, sprites, attackField = {offset: {}, width: undefined, height: undefined}) {
 		super({
 			position,
 			imgSrc,
@@ -59,9 +59,9 @@ class Fighter extends Sprite {
 		this.height = 150
 		this.lastKeyPressed
 		this.attackField = {
-			width: 100,
-			height: 50,
-			// offset,
+			width: attackField.width,
+			height: attackField.height,
+			offset: attackField.offset,
 			position: {
 				x: this.position.x,
 				y: this.position.y
@@ -101,6 +101,8 @@ class Fighter extends Sprite {
 
 		this.position.x += this.velocity.x;
 		this.position.y += this.velocity.y;
+
+		context.fillRect(this.attackField.position.x, this.attackField.position.y, this.attackField.width, this.attackField.height);
 
 		this.attackField.position.x = this.position.x - this.attackField.offset.x;
 		this.attackField.position.y = this.position.y - this.attackField.offset.y;
