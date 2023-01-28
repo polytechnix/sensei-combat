@@ -290,11 +290,15 @@ function animate() {
 	  player.attackField.position.y <= enemy.position.y + enemy.height
 	*/
 
-	if(detectCollision({field1: player, field2: enemy}) && player.isAttacking) {
+	if(detectCollision({field1: player, field2: enemy}) && player.isAttacking && player.currentFrame === 4) {
 		console.log('Player attack successful');
 		player.isAttacking = false;
 		enemy.health -= 20;
 		document.querySelector('#enemyBalanceHealth') = enemy.health + '%';
+	}
+
+	if(player.isAttacking && player.currentFrame === 4) {
+		player.isAttacking = false;
 	}
 
 	if(detectCollision({field1: enemy, field2: player}) && enemy.isAttacking) {
